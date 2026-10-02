@@ -50,3 +50,6 @@ time. gateway-hello reuses hello's `app.py` against its own broker.
 - **Class A is the default.** A device listens only right after it transmits,
   so downlinks wait for the next uplink. Class B adds scheduled windows;
   Class C listens all the time.
+
+For a longer walkthrough of the components, LoRa vs LoRaWAN, and ChirpStack's
+concepts, see [docs/lorawan-basics.md](docs/lorawan-basics.md).
