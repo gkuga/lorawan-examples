@@ -85,6 +85,7 @@ Raspberry Pi based developer gateways built this way.
 
 - **Hardware:** a RAK5146 (mPCIe) on a Pi HAT or a USB adapter, a 920MHz
   antenna, and optionally a GPS antenna. In Japan, pick a variant with LBT.
+  Wiring and setup: [rak5146-raspberry-pi.md](rak5146-raspberry-pi.md).
 - **Software:** one of these.
   - ChirpStack Gateway OS supports Raspberry Pi with RAK concentrators.
   - Semtech's `sx1302_hal` includes `lora_pkt_fwd`. It speaks the same UDP
