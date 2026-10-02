@@ -32,6 +32,13 @@ Devices join the network in one of two ways:
   session keys are derived at join time. More secure and the usual choice in
   production. See [otaa-hello](../otaa-hello/).
 
+| | ABP ([gateway-hello](../gateway-hello/)) | OTAA ([otaa-hello](../otaa-hello/)) |
+|---|---|---|
+| Provisioned on the device | DevAddr, NwkSKey, AppSKey | DevEUI, AppEUI (JoinEUI), AppKey |
+| After a restart | Same keys. Resetting FCnt to 0 reuses the keystream, so counters must survive power cycles. | Joins again: new DevAddr and session keys, so FCnt from 0 is safe. |
+| RX settings (RX1 delay, data rates) | Written into the device profile by hand (`abp_rx1_delay` and friends) | Delivered in the join accept |
+| If session keys leak | Both the device and the server must be reprovisioned | A rejoin replaces them (unless AppKey itself leaked) |
+
 ChirpStack v4 combines roles the LoRaWAN architecture treats as separate:
 Network Server, Application Server and Join Server.
 
