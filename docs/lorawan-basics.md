@@ -42,6 +42,47 @@ Devices join the network in one of two ways:
 ChirpStack v4 combines roles the LoRaWAN architecture treats as separate:
 Network Server, Application Server and Join Server.
 
+## Why gateways?
+
+End devices speak only LoRa radio, so something has to carry their frames to
+the internet. That is the gateway, much like a Wi-Fi access point or a cell
+tower.
+
+- **Devices cannot speak IP.** They are small battery-powered MCUs meant to
+  last years. They have no room for TCP/IP or TLS, no power to stay connected,
+  and frames of a few dozen bytes. They transmit briefly and go back to sleep;
+  a mains-powered gateway with a backhaul does the rest.
+- **Radio needs a receiver nearby.** LoRa reaches a few km, while the network
+  server sits in a data centre or the cloud. Something on site has to receive
+  the radio and put it on IP.
+- **Many devices need special hardware.** A device radio handles one channel
+  and one SF at a time. A gateway's concentrator (such as the SX1302) demodulates
+  8 channels and several SFs at once, and transmits downlinks at the exact
+  microsecond and frequency the network server asks for.
+
+Keeping gateways dumb pays off:
+
+- **Several gateways can hear one frame.** The network server drops the
+  duplicates, and the frame only has to reach one gateway.
+- **No handover.** Devices are not attached to a gateway; whichever one is in
+  range picks up the frame.
+- **No keys on gateways.** A stolen or compromised gateway cannot read
+  payloads.
+- **Coverage is cheap to extend.** Gateways need almost no configuration, so
+  you add more where coverage is thin.
+
+| Approach | What relays the device | Trade-off |
+|---|---|---|
+| LoRaWAN | Gateways you deploy (or an operator's) | You can build your own network, but you run the gateways. |
+| NB-IoT / LTE-M | The carrier's base stations | No gateways to run, but SIMs, data plans, more power and cost per device, and no service outside carrier coverage. |
+| Point-to-point LoRa | The receiving MCU itself | Simple, but scaling to many devices and security are up to you. |
+| Mesh (Zigbee, Meshtastic, ...) | Other devices | Relaying devices must stay awake, which drains batteries. |
+
+LoRaWAN keeps devices as frugal as possible and moves the work outward:
+gateways receive and relay, the network server does the thinking.
+[gateway-hello](../gateway-hello/) fakes the relay step as a UDP packet
+forwarder.
+
 ## LoRa vs LoRaWAN
 
 LoRa is how bits travel over the air (physical layer). LoRaWAN is the network
