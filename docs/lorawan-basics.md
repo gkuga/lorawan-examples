@@ -81,7 +81,8 @@ Keeping gateways dumb pays off:
 LoRaWAN keeps devices as frugal as possible and moves the work outward:
 gateways receive and relay, the network server does the thinking.
 [gateway-hello](../gateway-hello/) fakes the relay step as a UDP packet
-forwarder.
+forwarder. For real gateways and modules, and Japan's radio certification,
+see [lorawan-hardware.md](lorawan-hardware.md).
 
 ## LoRa vs LoRaWAN
 
