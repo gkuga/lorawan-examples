@@ -111,8 +111,14 @@ downlink (MHDR `a0`, MType 101) it received in between.
   restart it, and ChirpStack drops every uplink with an
   `UPLINK_F_CNT_RESET` log event, which `app.py` prints. To recover, stop
   `gateway_mock.py` and run `uv run provision.py --reactivate`, which resets
-  the counters on both sides. OTAA avoids this, because every join starts a
-  new session.
+  the counters on both sides.
+- **…but that recovery reuses the keystream.** After a reactivation the
+  counters start again under the *same* session keys, so `hello #1` at fCnt 3
+  is encrypted with exactly the keystream an earlier `hello #4` at fCnt 3
+  was. The two ciphertexts then differ only where the plaintexts do, by the
+  same XOR (`'4' ^ '1'` = `e7 ^ e2` = `05`), and knowing one plaintext reveals
+  the other. [otaa-hello](../otaa-hello/) avoids this: every join brings new
+  keys.
 - **The downlink can be quicker than expected.** ChirpStack waits about
   200 ms to collect copies of an uplink from other gateways before
   publishing it. Here, `app.py` reacts within that time and the reply makes

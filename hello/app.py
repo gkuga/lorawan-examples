@@ -44,6 +44,11 @@ def on_up(client, event: dict) -> None:
         say_hello(client, device["applicationId"], device["devEui"])
 
 
+def on_join(client, event: dict) -> None:
+    device = event["deviceInfo"]
+    print(f"[app] {device['devEui']} joined with DevAddr {event['devAddr']}")
+
+
 def on_txack(client, event: dict) -> None:
     print(
         f"[app] downlink {short(event['queueItemId'])} transmitted by "
@@ -61,7 +66,7 @@ def on_log(client, event: dict) -> None:
     print(f"[app] {event['level']} {event['code']}: {event['description']}")
 
 
-HANDLERS = {"up": on_up, "txack": on_txack, "ack": on_ack, "log": on_log}
+HANDLERS = {"up": on_up, "join": on_join, "txack": on_txack, "ack": on_ack, "log": on_log}
 
 
 def on_message(client, userdata, msg):

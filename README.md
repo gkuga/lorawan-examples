@@ -24,6 +24,7 @@ for real.
 |---|---|---|
 | [hello](hello/) | everything below MQTT | A backend app and a fake network exchanging ChirpStack integration events |
 | [gateway-hello](gateway-hello/) | everything below the gateway bridge | A fake gateway and ABP device in front of a **real** ChirpStack, with real LoRaWAN frames |
+| [otaa-hello](otaa-hello/) | everything below the gateway bridge | The same, with a device that joins over the air (OTAA) and gets fresh session keys |
 
 ## How to run
 
@@ -35,9 +36,10 @@ cd hello
 uv sync
 ```
 
-Both examples bind port 1883, as do the hello examples in
+hello and gateway-hello both bind port 1883, as do the hello examples in
 [wirepas-examples](https://github.com/gkuga/wirepas-examples); run one at a
-time. gateway-hello reuses hello's `app.py` against its own broker.
+time. gateway-hello and otaa-hello share gateway-hello's ChirpStack, can run
+side by side, and both use hello's `app.py` as the application.
 
 ## Notes on LoRaWAN
 
