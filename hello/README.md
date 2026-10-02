@@ -114,8 +114,9 @@ MQTT_HOST=192.168.1.10 uv run app.py
 
 ## What the mock does not do
 
-- No frames, no encryption, no MIC: those live below this interface. They
-  are the subject of the next example.
+- No frames, no encryption, no MIC: those live below this interface. See
+  [gateway-hello](../gateway-hello/), which runs this same `app.py` against a
+  real ChirpStack.
 - One device, one gateway, no join (`join` event), no device status
   (`status` event) and no payload codec (`object`).
 - The device always receives the downlink, so `ack` is always positive.

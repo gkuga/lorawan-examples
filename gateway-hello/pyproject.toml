@@ -1,0 +1,10 @@
+[project]
+name = "gateway-hello"
+version = "0.1.0"
+description = "A fake LoRaWAN gateway and device in front of a real ChirpStack"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "chirpstack-api>=4.19.0",
+    "cryptography>=45.0.0",
+]

@@ -12,7 +12,7 @@ for real.
   [ backend application ]
            ▲ MQTT (JSON)                        ← hello: fakes everything below this
   [ ChirpStack ] (network server)
-           ▲ UDP packet forwarder / WebSocket   ← planned: fake a gateway
+           ▲ UDP packet forwarder               ← gateway-hello: fakes everything below this
   [ gateway ]
            ▲ LoRa, 920MHz (AS923)
   [ end device ]
@@ -23,6 +23,7 @@ for real.
 | Name | Fakes | Description |
 |---|---|---|
 | [hello](hello/) | everything below MQTT | A backend app and a fake network exchanging ChirpStack integration events |
+| [gateway-hello](gateway-hello/) | everything below the gateway bridge | A fake gateway and ABP device in front of a **real** ChirpStack, with real LoRaWAN frames |
 
 ## How to run
 
@@ -34,8 +35,9 @@ cd hello
 uv sync
 ```
 
-The broker binds port 1883, like the hello examples in
-[wirepas-examples](https://github.com/gkuga/wirepas-examples); run one at a time.
+Both examples bind port 1883, as do the hello examples in
+[wirepas-examples](https://github.com/gkuga/wirepas-examples); run one at a
+time. gateway-hello reuses hello's `app.py` against its own broker.
 
 ## Notes on LoRaWAN
 
