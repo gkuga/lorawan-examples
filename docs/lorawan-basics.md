@@ -100,6 +100,35 @@ protocol built on top of it (MAC layer and above).
 In ChirpStack's frame view you see both layers side by side: SF, RSSI and SNR
 come from LoRa, while DevAddr, FCnt and MIC come from LoRaWAN.
 
+## What LoRaWAN specifies vs what ChirpStack implements
+
+LoRaWAN specifies what goes over the air and how servers talk to each other.
+How a server organises devices and who may see them is up to each
+implementation.
+
+| Area | Examples | Defined by |
+|---|---|---|
+| Over-the-air protocol | Frame format, encryption, MIC, joins, MAC commands, classes A/B/C, ADR | LoRaWAN specification (LoRa Alliance) |
+| Frequencies and rules per region | AS923 channels, dwell-time limits | Regional Parameters (LoRa Alliance) |
+| Server-to-server | Network Server to Join Server, roaming | LoRaWAN Backend Interfaces (LoRa Alliance) |
+| Management and operations | Tenants, users, applications, device profiles, web UI, API, MQTT integrations | Each network server (ChirpStack, The Things Network, ...) |
+
+- **Devices do not know their tenant.** A device holds only DevEUI, AppKey,
+  DevAddr and session keys. ChirpStack maps DevAddr / DevEUI to a tenant and
+  application in its database. The same firmware works unchanged on another
+  network server.
+- **The spec's closest concepts are per operator, not per customer.**
+  - **NetID** identifies a network operator; DevAddr starts with a prefix
+    derived from it.
+  - **JoinEUI** tells the network which Join Server holds the device's keys.
+  - **Roaming** lets one operator's gateways serve another operator's
+    devices.
+
+  Tenants sit inside a single operator.
+- **Gateway sharing is a server-side policy.** Gateways forward every frame
+  they hear, whoever it belongs to. Whether a tenant may use another tenant's
+  gateways is decided by ChirpStack after the frame arrives.
+
 ## ChirpStack concepts
 
 ```
