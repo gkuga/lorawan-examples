@@ -57,3 +57,5 @@ For a longer walkthrough of the components, LoRa vs LoRaWAN, and ChirpStack's
 concepts, see [docs/lorawan-basics.md](docs/lorawan-basics.md).
 For real radios to buy and Japan's radio certification (技適), see
 [docs/lorawan-hardware.md](docs/lorawan-hardware.md).
+
+What is not covered yet is listed in [TODO.md](TODO.md).

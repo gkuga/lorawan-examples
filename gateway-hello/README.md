@@ -144,7 +144,7 @@ downlink (MHDR `a0`, MType 101) it received in between.
 
 - **MAC commands.** The device prints any it receives but never answers. ADR
   is off, so ChirpStack has no reason to send them here.
-- **OTAA.** No join request or join accept; that is the next step.
+- **OTAA.** No join request or join accept; see [otaa-hello](../otaa-hello/).
 - **RX2, Class B and C.** Downlinks are delivered at whatever time the
   network asks for.
 - **Radio effects.** Every frame arrives, with the same RSSI and SNR.
